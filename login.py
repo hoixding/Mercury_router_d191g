@@ -1,7 +1,9 @@
 import json
+import urllib
+
 import requests
 
-headers = {
+post_headers = {
     "Host": "192.168.0.1",
     "Connection": "keep-alive",
     "Accept": "*/*",
@@ -11,10 +13,15 @@ headers = {
     "Referer": "http://192.168.0.1/",
     "Accept-Encoding": "gzip, deflate, br"
 }
-data = json.dumps({"method":"do","login":{"password":"********"}})
+data = json.dumps({"method":"do","login":{"password":"**********"}})
 url = 'http://192.168.0.1/'
-resp = requests.post(url, headers=headers, data=data)
+resp = requests.post(url, headers=post_headers, data=data)
 # 获取服务器状态响应
 print(resp.text)
 dict = json.loads(resp.content.decode('utf-8'))
-print(dict.get('stok'))
+stok=dict.get('stok')
+url = 'http://192.168.0.1/stok='+stok+'/pc/WizardEnd.htm'
+
+#print(request.text)
+r=requests.get(url)
+print(r.text)
